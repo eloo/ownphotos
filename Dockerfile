@@ -35,7 +35,7 @@ RUN apt-get update && \
     cd /dlib && \
     /miniconda/bin/python setup.py install --no USE_AVX_INSTRUCTIONS --no DLIB_USE_CUDA 
 
-RUN /miniconda/bin/conda install -y pytorch=0.4.1 -c pytorch
+RUN /miniconda/bin/cconda install -y pytorch torchvision cpuonly -c pytorch
 # RUN /venv/bin/pip install http://download.pytorch.org/whl/cpu/torch-0.4.1-cp35-cp35m-linux_x86_64.whl && /venv/bin/pip install torchvision
 RUN /miniconda/bin/conda install -y psycopg2
 
