@@ -75,7 +75,7 @@ pyparsing==2.2.0
 python-dateutil==2.7.3
 python-memcached==1.58
 pytz==2018.4
-redis==2.10.6
+redis==3.4.1
 regex==2018.1.10
 # requests==2.18.4
 rq==0.12.0
