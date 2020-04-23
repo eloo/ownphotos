@@ -85,7 +85,7 @@ seaborn==0.8.1
 serpy==0.3.1
 simplegeneric==0.8.1
 # six==1.10.0
-spacy==2.0.18
+spacy==2.2.4
 thinc==6.12.0
 toolz==0.9.0
 # torch==0.4.1
