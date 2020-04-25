@@ -1,8 +1,10 @@
+language: minimal
+
 sudo: required
 
 services:
   - docker
-
+  
 before_script:
   - echo "Build ownphotos"
 
@@ -13,9 +15,10 @@ env:
     - DOCKER_COMPOSE_VERSION=1.25.5
 
 before_install:
-  script:
-    - curl google.de
-
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
 
 stages:
   - build
