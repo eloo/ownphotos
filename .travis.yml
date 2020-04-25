@@ -25,6 +25,10 @@ stages:
   - test
   - deploy
 
+cache:
+  directories:
+    - /var/lib/docker/
+    
 jobs:
   include:
     - stage: build
