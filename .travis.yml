@@ -1,8 +1,8 @@
-language: minimal
+sudo: required
 
 services:
   - docker
-  
+
 before_script:
   - echo "Build ownphotos"
 
