@@ -14,7 +14,7 @@ env:
 
 before_install:
   script:
-    - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-Linux-x86_64 > docker-compose
+    - curl google.de
 
 
 stages:
