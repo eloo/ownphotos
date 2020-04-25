@@ -22,12 +22,6 @@ before_install:
 
 stages:
   - build
-  - test
-  - deploy
-
-cache:
-  directories:
-    - /var/lib/docker/
 
 jobs:
   include:
@@ -38,11 +32,3 @@ jobs:
         - curl localhost:3000
         - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
         - docker push "${DOCKER_TAG}"
-    - stage: test
-      # script:
-      #   - docker-compose -f docker-compose.travis.yml up -d
-      #   - curl localhost:3000
-    # - stage: deploy
-    #   if: branch in (dev,master)
-    #   script:
-    #     - docker push "${DOCKER_TAG}"
