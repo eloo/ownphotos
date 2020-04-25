@@ -36,7 +36,7 @@ services:
       - "backend:backend"
 
   backend:
-    image: "IMAGE_NAME:${DOCKER_TAG}"
+    image: "${DOCKER_TAG}"
     # For development uncomment this and comment the image name above
     #build: .
     container_name: ownphotos-backend

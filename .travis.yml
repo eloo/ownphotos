@@ -6,11 +6,11 @@ services:
   - docker
   
 before_script:
-  - echo "Build ownphotos"
+  - echo "Build ownphotos ${DOCKER_TAG}"
 
 env:
   global:
-    - IMAGE_NAME=eloo/ownphotos 
+    - IMAGE_NAME=eloo/ownphotos
     - DOCKER_TAG=$IMAGE_NAME:$TRAVIS_BRANCH
     - DOCKER_COMPOSE_VERSION=1.25.5
 
