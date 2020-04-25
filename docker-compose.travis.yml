@@ -21,8 +21,6 @@ services:
     # This db password is internal, you can change it if you want, but also change it in ownphotos-backend container
       - POSTGRES_PASSWORD=AaAa1234
       - POSTGRES_DB=ownphotos
-    volumes:
-      - ownphotos-data:/var/lib/postgresql/data
 
   frontend:
     container_name: ownphotos-frontend
@@ -40,10 +38,6 @@ services:
     # For development uncomment this and comment the image name above
     #build: .
     container_name: ownphotos-backend
-    volumes:
-      # Your photos go here
-      - $HOME/Pictures/:/data
-      - $HOME/ownphotos_media:/code/protected_media
     environment:
       - SECRET_KEY=change_meme
       # This is backend host from within the service, you dont need to change this
@@ -71,7 +65,3 @@ services:
   ownphotos-redis:
     image: redis
     container_name: ownphotos-redis
-
-volumes:
-  ownphotos-data:
-  media:
