@@ -7,8 +7,8 @@ before_script:
   - echo "Build ownphotos"
 
 env:
-  - DOCKER_TAG=$TRAVIS_BRANCH
   - IMAGE_NAME=eloo/ownphotos 
+  - DOCKER_TAG=$IMAGE_NAME:$TRAVIS_BRANCH
   - DOCKER_COMPOSE_VERSION=1.25.5
 
 before_install:
@@ -29,4 +29,4 @@ jobs:
     - stage: deploy
       if: branch in (dev,master)
       script:
-        - docker push "${IMAGE_NAME}:${DOCKER_TAG}"
+        - docker push "${DOCKER_TAG}"
