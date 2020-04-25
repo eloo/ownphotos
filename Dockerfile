@@ -13,9 +13,12 @@ RUN apt-get update && \
     libxrender-dev \
     wget \
     curl \
-    nginx 
-
-RUN apt-get install -y bzip2
+    nginx \
+    bzip2 \
+    cmake \
+    git \
+    build-essential && \
+    rm -rf /var/lib/apt/lists/*
 
 
 RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
@@ -25,9 +28,7 @@ RUN /miniconda/bin/conda install -y faiss-cpu -c pytorch
 RUN /miniconda/bin/conda install -y cython
 
 # Build and install dlib
-RUN apt-get update && \
-    apt-get install -y cmake git build-essential && \
-    git clone https://github.com/davisking/dlib.git && \
+RUN git clone https://github.com/davisking/dlib.git && \
     mkdir /dlib/build && \
     cd /dlib/build && \
     cmake .. -DDLIB_USE_CUDA=0 -DUSE_AVX_INSTRUCTIONS=0 && \
@@ -35,9 +36,7 @@ RUN apt-get update && \
     cd /dlib && \
     /miniconda/bin/python setup.py install --no USE_AVX_INSTRUCTIONS --no DLIB_USE_CUDA 
 
-RUN /miniconda/bin/conda install -y pytorch torchvision cpuonly -c pytorch
-# RUN /venv/bin/pip install http://download.pytorch.org/whl/cpu/torch-0.4.1-cp35-cp35m-linux_x86_64.whl && /venv/bin/pip install torchvision
-RUN /miniconda/bin/conda install -y psycopg2
+RUN /miniconda/bin/conda install -y pytorch torchvision cpuonly -c pytorch psycopg2
 
 RUN mkdir /code
 WORKDIR /code
@@ -47,14 +46,17 @@ RUN /miniconda/bin/pip install -r requirements.txt
 RUN /miniconda/bin/python -m spacy download en_core_web_sm
 
 WORKDIR /code/api/places365
-RUN wget https://s3.eu-central-1.amazonaws.com/ownphotos-deploy/places365_model.tar.gz
-RUN tar xf places365_model.tar.gz
+RUN wget https://s3.eu-central-1.amazonaws.com/ownphotos-deploy/places365_model.tar.gz && \
+    tar xf places365_model.tar.gz && \
+    rm places365_model.tar.gz
 
 WORKDIR /code/api/im2txt
-RUN wget https://s3.eu-central-1.amazonaws.com/ownphotos-deploy/im2txt_model.tar.gz
-RUN tar xf im2txt_model.tar.gz
-RUN wget https://s3.eu-central-1.amazonaws.com/ownphotos-deploy/im2txt_data.tar.gz
-RUN tar xf im2txt_data.tar.gz
+RUN wget https://s3.eu-central-1.amazonaws.com/ownphotos-deploy/im2txt_model.tar.gz && \
+    tar xf im2txt_model.tar.gz && \
+    rm im2txt_model.tar.gz
+RUN wget https://s3.eu-central-1.amazonaws.com/ownphotos-deploy/im2txt_data.tar.gz && \
+    tar xf im2txt_data.tar.gz && \
+    rm im2txt_data.tar.gz
 
 RUN rm -rf /var/lib/apt/lists/*
 RUN apt-get remove --purge -y cmake git && \
