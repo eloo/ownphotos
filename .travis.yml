@@ -28,7 +28,7 @@ stages:
 cache:
   directories:
     - /var/lib/docker/
-    
+
 jobs:
   include:
     - stage: build
@@ -36,11 +36,12 @@ jobs:
         - make build
         - docker-compose -f docker-compose.travis.yml up -d
         - curl localhost:3000
+        - docker push "${DOCKER_TAG}"
     - stage: test
       # script:
       #   - docker-compose -f docker-compose.travis.yml up -d
       #   - curl localhost:3000
-    - stage: deploy
-      if: branch in (dev,master)
-      script:
-        - docker push "${DOCKER_TAG}"
+    # - stage: deploy
+    #   if: branch in (dev,master)
+    #   script:
+    #     - docker push "${DOCKER_TAG}"
