@@ -36,6 +36,7 @@ jobs:
         - make build
         - docker-compose -f docker-compose.travis.yml up -d
         - curl localhost:3000
+        - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
         - docker push "${DOCKER_TAG}"
     - stage: test
       # script:
