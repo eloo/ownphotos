@@ -9,12 +9,23 @@ before_script:
 env:
   - DOCKER_TAG=$TRAVIS_BRANCH
   - IMAGE_NAME=eloo/ownphotos 
+  - DOCKER_COMPOSE_VERSION=1.25.5
+
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
 
 jobs:
   include:
     - stage: build
       script: 
         - make build
+    - stage: test
+      script: 
+        - docker-compose -f docker-compose.travis.yml up
+        - curl localhost:3000
     - stage: deploy
       if: branch in (dev,master)
       script:
