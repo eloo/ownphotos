@@ -32,7 +32,7 @@ jobs:
         - make build
     - stage: test
       script:
-        - docker-compose -f docker-compose.travis.yml up -d
+        - docker-compose -f docker-compose.travis.yml up -d --force-recreate
         - curl localhost:3000
     - stage: deploy
       if: branch in (dev,master)
