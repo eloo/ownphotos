@@ -30,6 +30,8 @@ jobs:
     - stage: build
       script: 
         - make build
+        - docker-compose -f docker-compose.travis.yml up -d
+        - curl localhost:3000
     - stage: test
       # script:
       #   - docker-compose -f docker-compose.travis.yml up -d
