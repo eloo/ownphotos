@@ -11,6 +11,11 @@ env:
   - DOCKER_TAG=$IMAGE_NAME:$TRAVIS_BRANCH
   - DOCKER_COMPOSE_VERSION=1.25.5
 
+stages:
+  - build
+  - test
+  - deploy
+
 jobs:
   include:
     - stage: build
