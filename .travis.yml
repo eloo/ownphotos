@@ -31,9 +31,9 @@ jobs:
       script: 
         - make build
     - stage: test
-      script:
-        - docker-compose -f docker-compose.travis.yml up -d
-        - curl localhost:3000
+      # script:
+      #   - docker-compose -f docker-compose.travis.yml up -d
+      #   - curl localhost:3000
     - stage: deploy
       if: branch in (dev,master)
       script:
