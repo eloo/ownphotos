@@ -12,6 +12,13 @@ env:
     - DOCKER_TAG=$IMAGE_NAME:$TRAVIS_BRANCH
     - DOCKER_COMPOSE_VERSION=1.25.5
 
+before_install:
+  script:
+    - sudo rm /usr/local/bin/docker-compose
+    - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-Linux-x86_64 > docker-compose
+    - chmod +x docker-compose
+    - sudo mv docker-compose /usr/local/bin 
+
 stages:
   - build
   - test
@@ -24,10 +31,6 @@ jobs:
         - make build
     - stage: test
       script:
-        - sudo rm /usr/local/bin/docker-compose
-        - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-Linux-x86_64 > docker-compose
-        - chmod +x docker-compose
-        - sudo mv docker-compose /usr/local/bin 
         - docker-compose -f docker-compose.travis.yml up
         - curl localhost:3000
     - stage: deploy
