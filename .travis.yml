@@ -2,6 +2,20 @@ language: minimal
 
 services:
   - docker
+  
+before_script:
+  - echo "Build ownphotos"
 
-script:
-- make build
+env:
+  - DOCKER_TAG=$TRAVIS_BRANCH
+  - IMAGE_NAME=eloo/ownphotos 
+
+jobs:
+  include:
+    - stage: build
+      script: 
+        - make build
+    - stage: deploy
+      if: branch in (dev,master)
+      script:
+        - docker push "${IMAGE_NAME}:${DOCKER_TAG}"
