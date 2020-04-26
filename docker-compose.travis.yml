@@ -34,7 +34,7 @@ services:
       - "backend:backend"
 
   backend:
-    image: "eloo/ownphotos:${TRAVIS_BRANCH}"
+    image: "${DOCKER_TAG}"
     # For development uncomment this and comment the image name above
     #build: .
     container_name: ownphotos-backend
@@ -61,7 +61,9 @@ services:
     links:
       - "ownphotos-db:ownphotos-db"
       - "ownphotos-redis:ownphotos-redis"
-  
+    ports:
+      - "9123:80"
+
   ownphotos-redis:
     image: redis
     container_name: ownphotos-redis

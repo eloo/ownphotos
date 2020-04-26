@@ -11,7 +11,7 @@ before_script:
 env:
   global:
     - IMAGE_NAME=eloo/ownphotos
-    - DOCKER_TAG=$IMAGE_NAME:$TRAVIS_BRANCH
+    - DOCKER_TAG=$IMAGE_NAME:$TRAVIS_BRANCH-$TRAVIS_BUILD_NUMBER
     - DOCKER_COMPOSE_VERSION=1.25.5
 
 before_install:
@@ -20,15 +20,19 @@ before_install:
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
 
-stages:
-  - build
+script: 
+  - make build
+  - docker-compose -f docker-compose.travis.yml up -d
+  - curl -s localhost:9123 --user admin:admin | grep "api/manage/user"
 
-jobs:
-  include:
-    - stage: build
-      script: 
-        - make build
-        - docker-compose -f docker-compose.travis.yml up -d
-        - curl localhost:3000
-        - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
-        - docker push "${DOCKER_TAG}"
+before_deploy:
+  - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
+  - docker tag "$IMAGE_NAME" "${IMAGE_NAME}:latest"
+  - docker tag "$IMAGE_NAME" "${IMAGE_NAME}:${VERSION}"
+  
+deploy:
+  provider: script
+  script: docker push "${DOCKER_TAG}"
+  on:
+    all_branches: true
+    condition: $TRAVIS_BRANCH =~ ^(master|dev)$
