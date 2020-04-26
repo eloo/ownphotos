@@ -21,17 +21,17 @@ before_install:
   - sudo mv docker-compose /usr/local/bin
 
 script: 
-  - make build
-  - docker-compose -f docker-compose.travis.yml up -d
+  - make build || travis_terminate 1
+  - docker-compose -f docker-compose.travis.yml up -d || travis_terminate 1
   - sleep 120
-  - curl -s localhost:9123 --user admin:admin | grep "api/manage/user"
+  - curl -s localhost:9123 --user admin:admin | grep "api/manage/user" || travis_terminate 1
 
 before_deploy:
   - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
   
 deploy:
   provider: script
-  script: docker push "${DOCKER_TAG}"
+  script: docker push "${DOCKER_TAG}" || travis_terminate 1
   on:
     all_branches: true
     condition: $TRAVIS_BRANCH =~ ^(master|dev)$
