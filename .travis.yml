@@ -11,7 +11,7 @@ before_script:
 env:
   global:
     - IMAGE_NAME=eloo/ownphotos
-    - DOCKER_TAG=$IMAGE_NAME:$TRAVIS_BRANCH
+    - DOCKER_TAG=$IMAGE_NAME:$TRAVIS_BRANCH-$TRAVIS_BUILD_NUMBER
     - DOCKER_COMPOSE_VERSION=1.25.5
 
 before_install:
@@ -21,7 +21,7 @@ before_install:
   - sudo mv docker-compose /usr/local/bin
 
 # script: 
-  # - make build || travis_terminate 1
+  - make build || travis_terminate 1
   - echo $DOCKER_TAG
   - docker-compose -f docker-compose.travis.yml up -d || travis_terminate 1
   - sleep 300
