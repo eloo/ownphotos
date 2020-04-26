@@ -24,8 +24,8 @@ RUN apt-get update && \
 RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 RUN bash Miniconda3-latest-Linux-x86_64.sh -b -p /miniconda
 # RUN apt-get install libopenblas-dev liblapack-dev
-RUN /miniconda/bin/conda install -y faiss-cpu -c pytorch
-RUN /miniconda/bin/conda install -y cython
+RUN /miniconda/bin/conda install -y faiss-cpu -c pytorch && \
+    /miniconda/bin/conda install -y cython
 
 # Build and install dlib
 RUN git clone https://github.com/davisking/dlib.git && \
@@ -36,8 +36,8 @@ RUN git clone https://github.com/davisking/dlib.git && \
     cd /dlib && \
     /miniconda/bin/python setup.py install --no USE_AVX_INSTRUCTIONS --no DLIB_USE_CUDA 
 
-RUN /miniconda/bin/conda install -y pytorch torchvision cpuonly -c pytorch psycopg2
-
+RUN /miniconda/bin/conda install -y pytorch=0.4.1 -c pytorch && \
+    /miniconda/bin/conda install -y psycopg2
 RUN mkdir /code
 WORKDIR /code
 COPY requirements.txt /code/
