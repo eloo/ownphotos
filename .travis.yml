@@ -20,10 +20,12 @@ before_install:
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
 
-script: 
-  - make build || travis_terminate 1
+# script: 
+  # - make build || travis_terminate 1
+  - echo $DOCKER_TAG
   - docker-compose -f docker-compose.travis.yml up -d || travis_terminate 1
   - sleep 300
+  - docker ps
   - curl -s localhost:9123 --user admin:admin | grep "api/manage/user" || travis_terminate 1
 
 before_deploy:
