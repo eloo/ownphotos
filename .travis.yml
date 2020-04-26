@@ -23,7 +23,7 @@ before_install:
 script: 
   - make build || travis_terminate 1
   - docker-compose -f docker-compose.travis.yml up -d || travis_terminate 1
-  - sleep 120
+  - sleep 300
   - curl -s localhost:9123 --user admin:admin | grep "api/manage/user" || travis_terminate 1
 
 before_deploy:
