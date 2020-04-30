@@ -37,7 +37,7 @@ face-recognition-models==0.3.0
 Flask==1.0
 Flask-Cors==3.0.3
 Flask-RESTful==0.3.6
-geopy==1.11.0
+geopy==1.21.0
 gunicorn==19.10.0
 # idna==2.5
 ipdb==0.10.3
