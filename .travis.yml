@@ -15,9 +15,6 @@ env:
     - DOCKER_COMPOSE_VERSION=1.25.5
 
 before_install:
-  - if [[ $TRAVIS_BRANCH =~ "^(develop$|master$)" ]]; then
-        export DOCKER_TAG=$TRAVIS_BRANCH
-    fi
   - echo $DOCKER_TAG
   - sudo rm /usr/local/bin/docker-compose
   - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
@@ -38,10 +35,11 @@ script:
 
 before_deploy:
   - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
-  
+  - docker tag "$DOCKER_TAG" "${IMAGE_NAME}:${TRAVIS_BRANCH}"
+
 deploy:
   provider: script
-  script: docker push "${DOCKER_TAG}" || travis_terminate 1
+  script: docker push "${IMAGE_NAME}:${TRAVIS_BRANCH}" || travis_terminate 1
   on:
     all_branches: true
     condition: $TRAVIS_BRANCH =~ ^(master|dev)$
