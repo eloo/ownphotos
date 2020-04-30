@@ -40,7 +40,7 @@ Flask-RESTful==0.3.6
 geopy==1.11.0
 gunicorn==19.10.0
 # idna==2.5
-ipdb==0.10.3
+ipdb==0.13.2
 ipython==6.1.0
 ipython-genutils==0.2.0
 itsdangerous==0.24
