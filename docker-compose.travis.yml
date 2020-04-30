@@ -34,7 +34,7 @@ services:
       - "backend:backend"
 
   backend:
-    image: eloo/ownphotos:dev-143
+    image: "${DOCKER_TAG}"
     # For development uncomment this and comment the image name above
     #build: .
     container_name: ownphotos-backend
