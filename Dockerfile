@@ -13,10 +13,12 @@ RUN apt-get update && \
     libxrender-dev \
     wget \
     curl \
-    nginx 
-
-RUN apt-get install -y bzip2
-
+    nginx \
+    cmake \
+    git \
+    build-essential \
+    bzip2 \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 RUN bash Miniconda3-latest-Linux-x86_64.sh -b -p /miniconda
@@ -25,9 +27,7 @@ RUN /miniconda/bin/conda install -y faiss-cpu -c pytorch
 RUN /miniconda/bin/conda install -y cython
 
 # Build and install dlib
-RUN apt-get update && \
-    apt-get install -y cmake git build-essential && \
-    git clone https://github.com/davisking/dlib.git && \
+RUN git clone https://github.com/davisking/dlib.git && \
     mkdir /dlib/build && \
     cd /dlib/build && \
     cmake .. -DDLIB_USE_CUDA=0 -DUSE_AVX_INSTRUCTIONS=0 && \
@@ -57,8 +57,6 @@ RUN wget https://s3.eu-central-1.amazonaws.com/ownphotos-deploy/im2txt_data.tar.
 RUN tar xf im2txt_data.tar.gz
 
 RUN rm -rf /var/lib/apt/lists/*
-RUN apt-get remove --purge -y cmake git && \
-    rm -rf /var/lib/apt/lists/*
 
 VOLUME /data
 
@@ -92,7 +90,6 @@ ENV TIME_ZONE UTC
 
 EXPOSE 80
 COPY . /code
-
 
 RUN mv /code/config_docker.py /code/config.py
 
