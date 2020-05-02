@@ -13,7 +13,7 @@ cymem==2.0.2
 cytoolz==0.9.0.1
 decorator==4.4.2
 dateutils==0.6.8
-dill==0.2.8.2
+dill==0.3.1.1
 Django==2.1.11
 django-appconf==1.0.4
 django-bulk-update==2.2.0
