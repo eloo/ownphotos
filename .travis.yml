@@ -1,0 +1,45 @@
+language: minimal
+
+sudo: required
+
+services:
+  - docker
+  
+before_script:
+  - echo "Build ownphotos ${DOCKER_TAG}"
+
+env:
+  global:
+    - IMAGE_NAME=eloo/ownphotos
+    - DOCKER_TAG=$IMAGE_NAME:$TRAVIS_BUILD_NUMBER
+    - DOCKER_COMPOSE_VERSION=1.25.5
+
+before_install:
+  - echo $DOCKER_TAG
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+
+script: 
+  - make build || travis_terminate 1
+  - echo $DOCKER_TAG
+  - docker-compose -f docker-compose.travis.yml up -d || travis_terminate 1
+  - docker ps
+  - docker logs ownphotos-backend
+  - docker-compose -f docker-compose.travis.yml up -d backend || travis_terminate 1
+  - sleep 300
+  - docker ps
+  - docker logs ownphotos-backend
+  - curl -s localhost:9123 --user admin:admin | grep "api/manage/user" || travis_terminate 1
+
+before_deploy:
+  - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
+  - docker tag "$DOCKER_TAG" "${IMAGE_NAME}:${TRAVIS_BRANCH}"
+
+deploy:
+  provider: script
+  script: docker push "${IMAGE_NAME}:${TRAVIS_BRANCH}" || travis_terminate 1
+  on:
+    all_branches: true
+    condition: $TRAVIS_BRANCH =~ ^(master|dev)$
