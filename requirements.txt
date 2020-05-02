@@ -11,7 +11,7 @@ cycler==0.10.0
 cymem==2.0.2
 # Cython==0.29
 cytoolz==0.9.0.1
-dateutils==0.6.6
+dateutils==0.6.8
 decorator==4.0.11
 dill==0.2.8.2
 Django==2.1.11
