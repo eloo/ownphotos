@@ -55,7 +55,7 @@ RUN wget https://s3.eu-central-1.amazonaws.com/ownphotos-deploy/im2txt_model.tar
     rm im2txt_model.tar.gz
 RUN wget https://s3.eu-central-1.amazonaws.com/ownphotos-deploy/im2txt_data.tar.gz && \
     tar xf im2txt_data.tar.gz && \
-    im2txt_data.tar.gz
+    rm im2txt_data.tar.gz
 
 VOLUME /data
 
