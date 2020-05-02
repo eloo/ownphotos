@@ -1,4 +1,4 @@
-FROM stretch-slim
+FROM debian:stretch-slim
 MAINTAINER Hooram Nam <nhooram@gmail.com>
 
 ENV MAPZEN_API_KEY mapzen-XXXX
