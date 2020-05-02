@@ -38,8 +38,7 @@ RUN git clone --depth 1 https://github.com/davisking/dlib.git && \
 RUN mkdir /code
 WORKDIR /code
 COPY requirements.txt /code/
-RUN /miniconda/bin/conda install -y pytorch=0.4.1 -c pytorch && \
-    /miniconda/bin/conda install -y psycopg2 && \
+RUN /miniconda/bin/conda install -y psycopg2 && \
     /miniconda/bin/pip install -r requirements.txt && \
     /miniconda/bin/python -m spacy download en_core_web_sm && \
     /miniconda/bin/conda clean -a && \
