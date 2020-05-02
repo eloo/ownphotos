@@ -35,16 +35,14 @@ RUN git clone --depth 1 https://github.com/davisking/dlib.git && \
     cd /dlib && \
     /miniconda/bin/python setup.py install --no USE_AVX_INSTRUCTIONS --no DLIB_USE_CUDA 
 
-RUN /miniconda/bin/conda install -y pytorch=0.4.1 -c pytorch
-# RUN /venv/bin/pip install http://download.pytorch.org/whl/cpu/torch-0.4.1-cp35-cp35m-linux_x86_64.whl && /venv/bin/pip install torchvision
-RUN /miniconda/bin/conda install -y psycopg2
-
 RUN mkdir /code
 WORKDIR /code
 COPY requirements.txt /code/
-RUN /miniconda/bin/pip install -r requirements.txt
-
-RUN /miniconda/bin/python -m spacy download en_core_web_sm
+RUN /miniconda/bin/conda install -y pytorch=0.4.1 -c pytorch && \
+    /miniconda/bin/conda install -y psycopg2 && \
+    /miniconda/bin/pip install -r requirements.txt && \
+    /miniconda/bin/python -m spacy download en_core_web_sm && \
+    /miniconda/bin/conda clean -a
 
 WORKDIR /code/api/places365
 RUN wget https://s3.eu-central-1.amazonaws.com/ownphotos-deploy/places365_model.tar.gz && \
