@@ -42,7 +42,8 @@ RUN /miniconda/bin/conda install -y pytorch=0.4.1 -c pytorch && \
     /miniconda/bin/conda install -y psycopg2 && \
     /miniconda/bin/pip install -r requirements.txt && \
     /miniconda/bin/python -m spacy download en_core_web_sm && \
-    /miniconda/bin/conda clean -a
+    /miniconda/bin/conda clean -a && \
+    rm -rf ~/.cache/pip
 
 WORKDIR /code/api/places365
 RUN wget https://s3.eu-central-1.amazonaws.com/ownphotos-deploy/places365_model.tar.gz && \
