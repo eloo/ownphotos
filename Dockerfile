@@ -12,6 +12,8 @@ RUN apt-get update && \
     build-essential \
     libpq-dev \
     libffi-dev \
+    libblas-dev \
+    liblapack-dev \
     && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /code
