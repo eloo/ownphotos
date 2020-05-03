@@ -10,6 +10,7 @@ RUN apt-get update && \
     nginx \
     cmake \
     build-essential \
+    libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /code
