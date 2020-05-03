@@ -14,6 +14,7 @@ RUN apt-get update && \
     libffi-dev \
     libblas-dev \
     liblapack-dev \
+    libglib2.0-0 \
     gfortran \
     wget \
     && rm -rf /var/lib/apt/lists/*
