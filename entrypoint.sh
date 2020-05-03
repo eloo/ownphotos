@@ -14,15 +14,15 @@ service nginx restart
 
 
 
-/miniconda/bin/pip install gevent
+pip install gevent
 
-/miniconda/bin/python image_similarity/main.py 2>&1 | tee logs/gunicorn_image_similarity.log &
+python image_similarity/main.py 2>&1 | tee logs/gunicorn_image_similarity.log &
 
-/miniconda/bin/python manage.py makemigrations api 2>&1 | tee logs/command_makemigrations.log
-/miniconda/bin/python manage.py migrate 2>&1 | tee logs/command_migrate.log
-/miniconda/bin/python manage.py build_similarity_index 2>&1 | tee logs/command_build_similarity_index.log
+python manage.py makemigrations api 2>&1 | tee logs/command_makemigrations.log
+python manage.py migrate 2>&1 | tee logs/command_migrate.log
+python manage.py build_similarity_index 2>&1 | tee logs/command_build_similarity_index.log
 
-/miniconda/bin/python manage.py shell <<EOF
+python manage.py shell <<EOF
 from api.models import User
 
 if User.objects.filter(username="$ADMIN_USERNAME").exists():
@@ -35,8 +35,6 @@ EOF
 
 echo "Running backend server..."
 
-
-
-/miniconda/bin/python manage.py rqworker default 2>&1 | tee logs/rqworker.log &
-/miniconda/bin/gunicorn --workers=2 --worker-class=gevent --bind 0.0.0.0:8001 --log-level=info ownphotos.wsgi 2>&1 | tee logs/gunicorn_django.log 
+python manage.py rqworker default 2>&1 | tee logs/rqworker.log &
+gunicorn --workers=2 --worker-class=gevent --bind 0.0.0.0:8001 --log-level=info ownphotos.wsgi 2>&1 | tee logs/gunicorn_django.log 
 
