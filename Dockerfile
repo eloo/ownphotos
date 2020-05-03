@@ -1,4 +1,4 @@
-FROM python:3.8-slim
+FROM python:3.7-slim
 MAINTAINER Hooram Nam <nhooram@gmail.com>
 
 ENV MAPZEN_API_KEY mapzen-XXXX
