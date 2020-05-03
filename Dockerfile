@@ -14,6 +14,7 @@ RUN apt-get update && \
     libffi-dev \
     libblas-dev \
     liblapack-dev \
+    gfortran \
     && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /code
