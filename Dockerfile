@@ -11,6 +11,7 @@ RUN apt-get update && \
     cmake \
     build-essential \
     libpq-dev \
+    libffi-dev \
     && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /code
