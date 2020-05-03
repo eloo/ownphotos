@@ -15,6 +15,7 @@ RUN apt-get update && \
     libblas-dev \
     liblapack-dev \
     gfortran \
+    wget \
     && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /code
