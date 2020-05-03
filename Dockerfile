@@ -12,30 +12,18 @@ RUN apt-get update && \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-RUN bash Miniconda3-latest-Linux-x86_64.sh -b -p /miniconda
-# RUN apt-get install libopenblas-dev liblapack-dev
-RUN /miniconda/bin/conda install -y faiss-cpu -c pytorch
-RUN /miniconda/bin/conda install -y cython
-
-# Build and install dlib
-RUN git clone --depth 1 https://github.com/davisking/dlib.git && \
-    mkdir /dlib/build && \
-    cd /dlib/build && \
-    cmake .. -DDLIB_USE_CUDA=0 -DUSE_AVX_INSTRUCTIONS=0 && \
-    cmake --build . && \
-    cd /dlib && \
-    /miniconda/bin/python setup.py install --no USE_AVX_INSTRUCTIONS --no DLIB_USE_CUDA 
-
 RUN mkdir /code
 WORKDIR /code
-COPY requirements.txt /code/
+COPY . /code
 
-RUN /miniconda/bin/conda install -y psycopg2 && \
-    /miniconda/bin/pip install -r requirements.txt && \
-    /miniconda/bin/python -m spacy download en_core_web_sm && \
-    /miniconda/bin/conda clean -a && \
+# install prerequirements
+RUN pip install -r prerequirements.txt && \
     rm -rf ~/.cache/pip
+# install requirements
+RUN pip install -r requirements.txt && \
+    rm -rf ~/.cache/pip
+
+RUN python -m spacy download en_core_web_sm
 
 WORKDIR /code/api/places365
 RUN wget https://s3.eu-central-1.amazonaws.com/ownphotos-deploy/places365_model.tar.gz && \
@@ -81,7 +69,6 @@ ENV REDIS_PORT 11211
 ENV TIME_ZONE UTC
 
 EXPOSE 80
-COPY . /code
 
 RUN mv /code/config_docker.py /code/config.py
 
