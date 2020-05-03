@@ -18,8 +18,8 @@ WORKDIR /code
 COPY . /code
 
 # install prerequirements
-RUN pip install -r prerequirements.txt && \
-    rm -rf ~/.cache/pip
+# RUN pip install -r prerequirements.txt && \
+#     rm -rf ~/.cache/pip
 # install requirements
 RUN pip install -r requirements.txt && \
     rm -rf ~/.cache/pip
