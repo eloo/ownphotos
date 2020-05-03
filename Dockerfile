@@ -1,4 +1,4 @@
-FROM debian:stretch-slim
+FROM python:3.8-slim
 MAINTAINER Hooram Nam <nhooram@gmail.com>
 
 ENV MAPZEN_API_KEY mapzen-XXXX
@@ -7,17 +7,9 @@ ENV ALLOWED_HOSTS=*
 
 RUN apt-get update && \
     apt-get install -y \
-    libsm6 \
-    libboost-all-dev \
-    libglib2.0-0 \
-    libxrender-dev \
-    wget \
-    curl \
     nginx \
     cmake \
-    git \
     build-essential \
-    bzip2 \
     && rm -rf /var/lib/apt/lists/*
 
 RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
