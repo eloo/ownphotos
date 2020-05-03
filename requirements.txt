@@ -45,7 +45,7 @@ ipython-genutils==0.2.0
 itsdangerous==0.24
 jedi==0.10.2
 Jinja2==2.10
-MarkupSafe==1.0
+MarkupSafe==1.1.1
 # matplotlib==2.0.2
 # mkl-fft==1.0.6
 msgpack==0.5.6
