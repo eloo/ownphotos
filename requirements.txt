@@ -36,6 +36,7 @@ drf-extensions==0.6.0
 ExifRead==2.1.2
 face-recognition==1.3.0
 face-recognition-models==0.3.0
+faiss==1.5.3
 Flask==1.1.2
 Flask-Cors==3.0.3
 Flask-RESTful==0.3.6
