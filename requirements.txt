@@ -29,7 +29,7 @@ django-redis==4.9.0
 django-rq==1.2.0
 djangorestframework==3.9.3
 djangorestframework-jwt==1.11.0
-djangorestframework-simplejwt==3.2.3
+djangorestframework-simplejwt==4.4.0
 dlib==19.19.0
 docopt==0.6.2
 drf-extensions==0.6.0
