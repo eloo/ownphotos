@@ -58,6 +58,8 @@ services:
       - REDIS_PORT=6379
       - MAPBOX_API_KEY=CHANGE_MEAAAA
       - TIME_ZONE=UTC
+    volumes:
+      - ./scripts/test_image:/data
     links:
       - "ownphotos-db:ownphotos-db"
       - "ownphotos-redis:ownphotos-redis"
