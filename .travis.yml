@@ -32,6 +32,7 @@ script:
   - docker ps
   - docker logs ownphotos-backend
   - docker logs ownphotos-backend | (! grep "Error") || travis_terminate 1
+  - chmod +x scripts/test.sh
   - scripts/test.sh || travis_terminate 1
 
 before_deploy:
