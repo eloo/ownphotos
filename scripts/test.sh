@@ -28,7 +28,9 @@ then
     exit 1
 fi
 
-echo 
+
+echo
+echo "Set data directory" 
 curl --location --request PATCH 'http://localhost:3000/api/manage/user/1/' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Basic YWRtaW46YWRtaW4=' \
@@ -38,6 +40,7 @@ curl --location --request PATCH 'http://localhost:3000/api/manage/user/1/' \
 }'
 
 echo
+echo "Trigger scan"
 curl --location --request GET 'http://localhost:3000/api/scanphotos/' \
 --header 'Authorization: Basic YWRtaW46YWRtaW4='
 
