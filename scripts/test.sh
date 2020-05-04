@@ -10,12 +10,12 @@ echo "Wait for the API with $TRY tries and wait sleep for $SLEEP_TIME seconds"
 while [ $TRY -le $MAX_TRIES ]
 do
     echo "Try number: $TRY"
-    curl --location 'http://localhost:3000/api' --header 'Content-Type: application/json' --header 'Authorization: Basic YWRtaW46YWRtaW4='
+    curl -si --location 'http://localhost:3000/api' --header 'Content-Type: application/json' --header 'Authorization: Basic YWRtaW46YWRtaW4=' | grep "200 OK"
     if [ $? -eq 0 ]
     then
         echo "API online"
         API_ONLINE=1
-        exit 0
+        break
     fi
     TRY=$(( TRY + 1 ))
     echo "Sleep for $SLEEP_TIME"
@@ -67,13 +67,13 @@ if (( $PHOTO_COUNT == 0 )); then
 fi
 
 TRY=0
-INFERRED_COUNT=0
-echo "Check inferred count with $TRY tries and wait sleep for $SLEEP_TIME seconds"
+LABELED_COUNT=0
+echo "Check labeled count with $TRY tries and wait sleep for $SLEEP_TIME seconds"
 while [ $TRY -le $MAX_TRIES ]
 do
     echo "Try number: $TRY"
-    INFERRED_COUNT=$(curl -s --location --request GET 'http://localhost:3000/api/faces/inferred/list/' --header 'Authorization: Basic YWRtaW46YWRtaW4=' | jq .count)
-    if (( $INFERRED_COUNT > 0 ))
+    LABELED_COUNT=$(curl -s --location --request GET 'http://localhost:3000/api/faces/labeled/list/' --header 'Authorization: Basic YWRtaW46YWRtaW4=' | jq .count)
+    if (( $LABELED_COUNT > 0 ))
     then
         echo "Inferred count greater than 1"
         break
@@ -83,7 +83,7 @@ do
     sleep $SLEEP_TIME
 done
 
-if (( $INFERRED_COUNT == 0 )); then
+if (( $LABELED_COUNT == 0 )); then
     echo "Inferred count is 0, should be greater than 0"
     exit 1
 fi
