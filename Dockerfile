@@ -11,6 +11,7 @@ RUN apt-get update && \
     libboost-all-dev \
     libglib2.0-0 \
     libxrender-dev \
+    libpq-dev \
     wget \
     curl \
     nginx \
