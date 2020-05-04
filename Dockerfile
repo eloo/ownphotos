@@ -7,16 +7,17 @@ ENV ALLOWED_HOSTS=*
 
 RUN apt-get update && \
     apt-get install -y \
+    libsm6 \
+    libboost-all-dev \
+    libglib2.0-0 \
+    libxrender-dev \
+    wget \
+    curl \
     nginx \
     cmake \
+    git \
     build-essential \
-    libpq-dev \
-    libffi-dev \
-    libblas-dev \
-    liblapack-dev \
-    libglib2.0-0 \
-    gfortran \
-    wget \
+    bzip2 \
     && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /code
