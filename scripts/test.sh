@@ -10,7 +10,7 @@ echo "Wait for the API with $TRY tries and wait sleep for $SLEEP_TIME seconds"
 while [ $TRY -le $MAX_TRIES ]
 do
     echo "Try number: $TRY"
-    curl -si --location 'http://localhost:3000/api' --header 'Content-Type: application/json' --header 'Authorization: Basic YWRtaW46YWRtaW4=' | grep "200 OK"
+    curl -si --location 'http://localhost:3000/api/user' --header 'Content-Type: application/json' --header 'Authorization: Basic YWRtaW46YWRtaW4=' | grep "200 OK"
     if [ $? -eq 0 ]
     then
         echo "API online"
@@ -31,7 +31,7 @@ fi
 
 echo
 echo "Set data directory" 
-curl --location --request PATCH 'http://localhost:3000/api/manage/user/1/' \
+curl -s --location --request PATCH 'http://localhost:3000/api/manage/user/1/' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Basic YWRtaW46YWRtaW4=' \
 --data-raw '{
@@ -41,7 +41,7 @@ curl --location --request PATCH 'http://localhost:3000/api/manage/user/1/' \
 
 echo
 echo "Trigger scan"
-curl --location --request GET 'http://localhost:3000/api/scanphotos/' \
+curl -s --location --request GET 'http://localhost:3000/api/scanphotos/' \
 --header 'Authorization: Basic YWRtaW46YWRtaW4='
 
 TRY=0
@@ -50,7 +50,7 @@ echo "Check photo count with $TRY tries and wait sleep for $SLEEP_TIME seconds"
 while [ $TRY -le $MAX_TRIES ]
 do
     echo "Try number: $TRY"
-    PHOTO_COUNT=$(curl --location --request GET 'http://localhost:3000/api/photos/recentlyadded/' --header 'Authorization: Basic YWRtaW46YWRtaW4=' | jq .count)
+    PHOTO_COUNT=$(curl -s --location --request GET 'http://localhost:3000/api/photos/recentlyadded/' --header 'Authorization: Basic YWRtaW46YWRtaW4=' | jq .count)
     if (( $PHOTO_COUNT > 0 ))
     then
         echo "Photo count greater than 1"
