@@ -13,6 +13,7 @@ RUN apt-get update && \
     libpq-dev \
     libffi-dev \
     libblas-dev \
+    libopenblas-dev \
     liblapack-dev \
     libglib2.0-0 \
     gfortran \
