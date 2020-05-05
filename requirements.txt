@@ -51,7 +51,7 @@ jedi==0.10.2
 Jinja2==2.10
 joblib==0.13.2
 kiwisolver==1.2.0
-MarkupSafe==1.0
+MarkupSafe==1.1.1
 matplotlib==3.2.1
 mkl-fft==1.0.15
 mkl-random==1.1.0
