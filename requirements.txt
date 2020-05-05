@@ -75,7 +75,7 @@ https://github.com/owncloud/pyocclient/archive/master.zip
 pyparsing==2.2.0
 python-dateutil==2.7.3
 python-memcached==1.58
-psycopg2=2.8.5
+psycopg2==2.8.5
 pytz==2018.4
 redis==2.10.6
 regex==2018.1.10
