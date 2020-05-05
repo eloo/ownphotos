@@ -92,7 +92,7 @@ do
     LABELED_COUNT=$(curl -s --location --request GET 'http://localhost:3000/api/faces/labeled/list/' --header 'Authorization: Basic YWRtaW46YWRtaW4=' | jq .count)
     if (( LABELED_COUNT > 0 ))
     then
-        echo "Inferred count greater than 1"
+        echo "Labeled count greater than 1"
         break
     fi
     TRY=$(( TRY + 1 ))
@@ -108,7 +108,7 @@ fi
 echo
 echo "Check jobs"
 JOBS=$(curl -s --location --request GET 'http://localhost:3000/api/jobs' --header 'Authorization: Basic YWRtaW46YWRtaW4=')
-jq <<< "$JOBS"
+jq . <<< "$JOBS"
 
 FINISHED=$(jq ".results[].finished" <<< "$JOBS")
 if [ ! "$FINISHED" = "true" ]; then
