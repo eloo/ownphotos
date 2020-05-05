@@ -2,6 +2,17 @@
 
 function exitWithLog() 
 {
+
+    echo
+    echo "Check jobs"
+    JOBS=$(curl -s --location --request GET 'http://localhost:3000/api/jobs' --header 'Authorization: Basic YWRtaW46YWRtaW4=')
+    jq . <<< "$JOBS"
+
+    FINISHED=$(jq ".results[].finished" <<< "$JOBS")
+    if [ ! "$FINISHED" = "true" ]; then
+    echo "The job is not finished: $FINISHED"
+    fi
+
     echo "ownphotos.log"
     docker exec -it ownphotos-backend bash -c "cat /code/logs/ownphotos.log"
 
@@ -103,17 +114,6 @@ done
 if (( LABELED_COUNT == 0 )); then
     echo "Inferred count is 0, should be greater than 0"
     exitWithLog 1
-fi
-
-echo
-echo "Check jobs"
-JOBS=$(curl -s --location --request GET 'http://localhost:3000/api/jobs' --header 'Authorization: Basic YWRtaW46YWRtaW4=')
-jq . <<< "$JOBS"
-
-FINISHED=$(jq ".results[].finished" <<< "$JOBS")
-if [ ! "$FINISHED" = "true" ]; then
-  echo "The job is not finished: $FINISHED"
-  exitWithLog 1
 fi
 
 exitWithLog 0
