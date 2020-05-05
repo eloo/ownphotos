@@ -32,7 +32,7 @@ RUN git clone --depth 1 https://github.com/davisking/dlib.git && \
     cmake .. -DDLIB_USE_CUDA=0 -DUSE_AVX_INSTRUCTIONS=0 && \
     cmake --build . && \
     cd /dlib && \
-    /miniconda/bin/python setup.py install --no USE_AVX_INSTRUCTIONS --no DLIB_USE_CUDA 
+    python setup.py install --no USE_AVX_INSTRUCTIONS --no DLIB_USE_CUDA 
 
 RUN mkdir /code
 WORKDIR /code
