@@ -1,5 +1,18 @@
 #!/bin/bash
 
+function exitWithLog() 
+{
+    echo "ownphotos.log"
+    docker exec -it ownphotos-backend bash -c "cat /code/logs/ownphotos.log"
+
+    echo "gunicorn_image_similarity.log"
+    docker exec -it ownphotos-backend bash -c "cat /code/logs/gunicorn_image_similarity.log"
+
+    echo "rqworker.log"
+    docker exec -it ownphotos-backend bash -c "cat /code/logs/rqworker.log"
+    exit "$1"
+}
+
 MAX_TRIES=10
 SLEEP_TIME=20
 
@@ -25,7 +38,7 @@ done
 if (( API_ONLINE == 0 ))
 then
     echo "API is still not online"
-    exit 1
+    exitWithLog 1
 fi
 
 
@@ -66,7 +79,7 @@ done
 
 if (( PHOTO_COUNT == 0 )); then
     echo "Photo count is 0, should be greater than 0"
-    exit 1
+    exitWithLog 1
 fi
 
 TRY=0
@@ -89,5 +102,18 @@ done
 
 if (( LABELED_COUNT == 0 )); then
     echo "Inferred count is 0, should be greater than 0"
-    exit 1
+    exitWithLog 1
 fi
+
+echo
+echo "Check jobs"
+JOBS=$(curl -s --location --request GET 'http://localhost:3000/api/jobs' --header 'Authorization: Basic YWRtaW46YWRtaW4=')
+jq <<< "$JOBS"
+
+FINISHED=$(jq ".results[].finished" <<< "$JOBS")
+if [ ! "$FINISHED" = "true" ]; then
+  echo "The job is not finished: $FINISHED"
+  exitWithLog 1
+fi
+
+exitWithLog 0

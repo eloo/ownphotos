@@ -8,10 +8,14 @@ ENV ALLOWED_HOSTS=*
 RUN apt-get update && \
     apt-get install -y \
     libsm6 \
-    libboost-all-dev \
+    libpq-dev \
+    libffi-dev \
+    libblas-dev \
+    libopenblas-dev \
+    liblapack-dev \
     libglib2.0-0 \
     libxrender-dev \
-    libpq-dev \
+    libxext6 \
     wget \
     curl \
     nginx \
