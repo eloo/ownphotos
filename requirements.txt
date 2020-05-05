@@ -71,7 +71,7 @@ pycparser==2.19
 Pygments==2.2.0
 PyJWT==1.7.1
 https://github.com/owncloud/pyocclient/archive/master.zip
-pyparsing==2.2.0
+pyparsing==2.4.7
 python-dateutil==2.7.3
 python-memcached==1.58
 pytz==2018.4
