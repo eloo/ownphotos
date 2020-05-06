@@ -76,7 +76,6 @@ pycosat==0.6.3
 pycparser==2.19
 Pygments==2.2.0
 PyJWT==1.7.1
-pyocclient==0.5
 pyOpenSSL==19.1.0
 pyparsing==2.2.0
 PySocks==1.7.1
