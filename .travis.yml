@@ -44,4 +44,4 @@ deploy:
   script: docker push "${IMAGE_NAME}:${TRAVIS_BRANCH}" || travis_terminate 1
   on:
     all_branches: true
-    condition: $TRAVIS_BRANCH =~ ^(master|dev)$
+    condition: $TRAVIS_BRANCH =~ ^(master|dev|debian-noconda)$
