@@ -63,7 +63,7 @@ pickleshare==0.7.4
 # Pillow==5.1.0
 pipreqs==0.4.7
 plac==0.9.6
-preshed==2.0.1
+preshed==3.0.4
 prompt-toolkit==1.0.14
 ptyprocess==0.5.2
 pycocotools==2.0.0
