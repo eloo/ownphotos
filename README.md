@@ -9,8 +9,7 @@
 ![](https://github.com/hooram/ownphotos/blob/dev/screenshots/Screenshot_2018-11-27_15-01-49.png?raw=true)
 
 ## Live demo
-Live [demo avilable here](https://demo.ownphotos.io).
-User is demo, password is demo1234.
+Currently unavailable.
 
 ## Discord Server
 https://discord.gg/dPCdTBN
